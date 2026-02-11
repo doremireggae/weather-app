@@ -182,6 +182,7 @@ async function loadWeather(lat, lon, name) {
 }
 
 function selectCity(id) {
+  if (id === getSelectedCityId()) return;
   setSelectedCityId(id);
   const city = findCity(id);
   if (!city) return;

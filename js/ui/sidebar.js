@@ -46,7 +46,7 @@ export function initSidebar({ onSelect, onAdd, onRemove }) {
   $("city-list").addEventListener("click", e => {
     if (dragPreventsClick) { dragPreventsClick = false; return; }
     const item = e.target.closest(".city-item");
-    if (item) onSelect(item.dataset.id);
+    if (item && item.dataset.id !== getSelectedCityId()) onSelect(item.dataset.id);
   });
 
   // Pointer-based drag reorder
