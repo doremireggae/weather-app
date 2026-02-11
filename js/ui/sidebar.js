@@ -12,11 +12,17 @@ let callbacks = {};
 function initSidebarToggle(sidebar) {
   const btn = document.getElementById("sidebar-toggle");
   if (!btn) return;
+
+  // Start collapsed on mobile
+  if (window.innerWidth <= 600) {
+    sidebar.classList.add("collapsed");
+  }
+
   btn.addEventListener("click", () => {
     sidebar.classList.toggle("collapsed");
   });
   sidebar.addEventListener("transitionend", (e) => {
-    if (e.propertyName === "width") redrawChart();
+    if (e.propertyName === "width" || e.propertyName === "transform") redrawChart();
   });
 }
 

@@ -104,15 +104,24 @@ html.native-app .titlebar {
 }
 
 @media (max-width: 600px) {
-  .body-split { flex-direction: column; }
   .sidebar {
-    width: 100% !important;
-    min-width: unset;
-    max-width: unset;
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-    max-height: 220px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 280px !important;
+    max-width: 80vw;
+    min-width: 0;
+    z-index: 50;
+    border-right: 1px solid var(--border);
+    transition: transform 0.25s ease;
   }
+  .sidebar.collapsed {
+    transform: translateX(-100%);
+    width: 280px !important;
+    border-right-color: transparent;
+  }
+  .body-split { position: relative; }
   .sidebar-resize { display: none; }
   .cards { grid-template-columns: 1fr; }
 }
