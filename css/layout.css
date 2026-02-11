@@ -17,6 +17,25 @@
   flex-shrink: 0;
 }
 
+.sidebar-toggle {
+  background: none;
+  border: none;
+  color: var(--text2);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 0.375rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.15s, color 0.15s;
+}
+
+.sidebar-toggle:hover {
+  background: var(--secondary);
+  color: var(--text);
+}
+
 .titlebar-title {
   flex: 1;
   text-align: center;
@@ -51,6 +70,13 @@ html.native-app .titlebar {
   flex-direction: column;
   overflow: hidden;
   position: relative;
+  transition: width 0.25s ease, min-width 0.25s ease, border-color 0.25s ease;
+}
+
+.sidebar.collapsed {
+  width: 0 !important;
+  min-width: 0;
+  border-right-color: transparent;
 }
 
 .sidebar-resize {

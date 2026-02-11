@@ -310,4 +310,11 @@ export function initSidebar({ onSelect, onAdd, onRemove }) {
 
   const savedWidth = loadSidebarWidth();
   if (savedWidth) sidebar.style.width = savedWidth + "px";
+
+  // Sidebar toggle
+  $("sidebar-toggle").addEventListener("click", () => {
+    sidebar.classList.toggle("collapsed");
+    // Redraw chart after transition to fit new width
+    sidebar.addEventListener("transitionend", () => redrawChart(), { once: true });
+  });
 }
