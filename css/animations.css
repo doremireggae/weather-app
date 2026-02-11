@@ -1,0 +1,52 @@
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes fadeInScale {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.card.show {
+  display: block;
+  animation: fadeIn 0.4s ease-out both;
+}
+
+.card.show:nth-child(2) { animation-delay: 0.1s; }
+
+.chart-container.show {
+  display: block;
+  animation: fadeIn 0.4s ease-out 0.2s both;
+}
+
+.diff.show {
+  display: block;
+  animation: fadeInScale 0.3s ease-out 0.15s both;
+}
+
+.card.fade-out,
+.chart-container.fade-out,
+.diff.fade-out {
+  display: block;
+  animation: fadeOut 0.25s ease-in both;
+}
+
+#status.show, #error.show {
+  animation: fadeIn 0.3s ease-out both;
+}
+
+.suggestions { transform-origin: top; }
+.suggestions.open {
+  display: block;
+  animation: fadeInScale 0.15s ease-out both;
+}

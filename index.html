@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather</title>
+  <!-- ES modules require HTTP serving: npx serve . or python3 -m http.server -->
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/sidebar.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+  <div class="window">
+    <div class="titlebar">
+      <span class="titlebar-title" id="app-title">Weather</span>
+    </div>
+
+    <div class="body-split">
+      <div class="sidebar">
+        <div class="sidebar-resize" id="sidebar-resize"></div>
+        <div class="sidebar-search">
+          <div class="search-wrap">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+              <circle cx="8.5" cy="8.5" r="5.5"/><line x1="12.5" y1="12.5" x2="17" y2="17"/>
+            </svg>
+            <input type="text" id="city-input" placeholder="Search city..." autocomplete="off">
+            <div class="search-spinner"></div>
+            <div class="suggestions" id="suggestions"></div>
+          </div>
+        </div>
+        <div class="city-list-header" id="city-list-header">Cities</div>
+        <div class="city-list" id="city-list">
+          <div class="city-list-empty" id="city-list-empty">Search to add cities</div>
+        </div>
+      </div>
+
+      <div class="content">
+        <span id="location-name" style="display:none"></span>
+
+        <div id="status"><div class="spinner"></div></div>
+        <div id="error"></div>
+
+        <div class="cards">
+          <div class="card" id="today-card">
+            <div class="card-label">
+              <svg viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="8" r="3"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.41 1.41M11.54 11.54l1.41 1.41M3.05 12.95l1.41-1.41M11.54 4.46l1.41-1.41" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+              <span id="label-today">Today</span>
+            </div>
+            <div class="weather-hero">
+              <span class="temp" id="today-current"></span>
+              <span class="temp-now" id="today-now"></span>
+              <span class="icon" id="today-icon"></span>
+            </div>
+            <div class="weather-desc" id="today-desc"></div>
+            <div class="diff" id="temp-diff"></div>
+          </div>
+
+          <div class="card" id="history-card">
+            <div class="card-label">
+              <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM7 4v5l3.5 2.1.5-.87L8 8.5V4H7z"/></svg>
+              <span id="label-last-year">Last Year</span>
+            </div>
+            <div class="weather-hero">
+              <span class="temp" id="history-temp"></span>
+              <span class="icon" id="history-icon"></span>
+            </div>
+            <div class="weather-desc" id="history-desc"></div>
+          </div>
+        </div>
+
+        <div class="chart-container" id="chart-container">
+          <div class="chart-header">
+            <span class="chart-title">
+              <svg viewBox="0 0 16 16" fill="currentColor"><path d="M1 14h14M2 11l3-4 3 2 4-6 2 3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span id="label-chart">4-Week Highs</span>
+            </span>
+            <div class="chart-legend">
+              <span><span class="legend-line" style="background: var(--line1);"></span><span id="legend-this">This year</span></span>
+              <span><span class="legend-line" style="background: var(--line2);"></span><span id="legend-last">Last year</span></span>
+            </div>
+          </div>
+          <canvas id="temp-chart" height="180"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

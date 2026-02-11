@@ -1,0 +1,151 @@
+/* Status */
+#status {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 0;
+}
+
+#status.show {
+  display: flex;
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 2.5px solid var(--fill2);
+  border-top-color: var(--text2);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+#error { font-size: 15px; color: var(--warmer); display: none; padding: 8px 0; }
+
+/* Cards grid */
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.card {
+  background: var(--fill);
+  border-radius: 12px;
+  padding: 18px;
+  display: none;
+}
+
+.card-label {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--text2);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.card-label svg {
+  width: 14px;
+  height: 14px;
+}
+
+.weather-hero {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.weather-hero .temp {
+  font-size: 44px;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.weather-hero .temp-now {
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--text2);
+  line-height: 1;
+  align-self: flex-end;
+  margin-bottom: 4px;
+}
+
+.weather-hero .icon {
+  font-size: 26px;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.weather-desc {
+  font-size: 15px;
+  color: var(--text2);
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+/* Diff badge */
+.diff {
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 8px;
+  display: none;
+  width: fit-content;
+}
+
+.diff.warmer { background: rgba(48, 209, 88, 0.15); color: var(--warmer); }
+.diff.cooler { background: rgba(10, 132, 255, 0.15); color: var(--cooler); }
+.diff.same { background: rgba(48, 209, 88, 0.15); color: var(--same); }
+
+/* Chart */
+.chart-container {
+  background: var(--fill);
+  border-radius: 12px;
+  padding: 18px;
+  display: none;
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.chart-title {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--text2);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.chart-title svg { width: 14px; height: 14px; }
+
+.chart-legend {
+  display: flex;
+  gap: 14px;
+  font-size: 13px;
+  color: var(--text2);
+}
+
+.chart-legend span { display: flex; align-items: center; gap: 5px; }
+
+.legend-line {
+  width: 16px;
+  height: 2px;
+  border-radius: 1px;
+  display: inline-block;
+}
+
+canvas { width: 100%; display: block; }

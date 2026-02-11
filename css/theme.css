@@ -1,0 +1,50 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #1e1e1e;
+  --window-bg: rgba(40, 40, 40, 0.82);
+  --window-border: rgba(255, 255, 255, 0.08);
+  --window-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 0.5px rgba(255, 255, 255, 0.06);
+  --titlebar-bg: rgba(50, 50, 50, 0.9);
+  --titlebar-border: rgba(255, 255, 255, 0.06);
+  --sidebar-bg: rgba(30, 30, 30, 0.6);
+  --sidebar-border: rgba(255, 255, 255, 0.06);
+  --sidebar-selected: rgba(255, 255, 255, 0.08);
+  --sidebar-hover: rgba(255, 255, 255, 0.04);
+  --text: #f5f5f7;
+  --text2: #98989d;
+  --text3: #636366;
+  --label: rgba(255, 255, 255, 0.55);
+  --fill: rgba(255, 255, 255, 0.04);
+  --fill2: rgba(255, 255, 255, 0.08);
+  --separator: rgba(255, 255, 255, 0.1);
+  --search-bg: rgba(255, 255, 255, 0.06);
+  --search-border: rgba(255, 255, 255, 0.08);
+  --search-focus: rgba(64, 156, 255, 0.4);
+  --accent: #0a84ff;
+  --line1: rgba(255, 255, 255, 0.9);
+  --line2: #636366;
+  --grid: rgba(255, 255, 255, 0.05);
+  --chart-label: rgba(255, 255, 255, 0.35);
+  --warmer: #30d158;
+  --cooler: #0a84ff;
+  --same: #30d158;
+  --dropdown-bg: rgba(44, 44, 46, 0.98);
+  --dropdown-shadow: 0 4px 20px rgba(0, 0, 0, 0.45), 0 0 0 0.5px rgba(255, 255, 255, 0.06);
+  --hover: rgba(64, 156, 255, 0.12);
+  --active-bg: #0a84ff;
+  --active-text: #fff;
+  --today-marker: rgba(255, 255, 255, 0.9);
+}
+
+body {
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: default;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background: var(--bg);
+  color: var(--text);
+  height: 100vh;
+  overflow: hidden;
+}
