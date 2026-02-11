@@ -15,6 +15,7 @@ import { renderTodayCard, renderHistoryCard, renderDiffBadge } from './ui/weathe
 let chartOffset = 0;
 let currentLat = null, currentLon = null;
 let defaultChartData = null;
+const chartCache = new Map();
 
 function updateChartNav() {
   $("chart-next").disabled = (chartOffset >= 0);
@@ -32,6 +33,31 @@ function updateChartNav() {
   }
 }
 
+function showChartSkeleton() {
+  $("chart-skeleton").classList.add("show");
+}
+
+function hideChartSkeleton() {
+  $("chart-skeleton").classList.remove("show");
+}
+
+function cacheKey(offset) {
+  return `${currentLat},${currentLon},${offset}`;
+}
+
+function prefetchAdjacent() {
+  if (!currentLat || !currentLon) return;
+  for (const off of [chartOffset - 1, chartOffset + 1]) {
+    if (off > 0 || off < -11) continue;
+    const key = cacheKey(off);
+    if (!chartCache.has(key)) {
+      fetchMonthChartData(currentLat, currentLon, off)
+        .then(data => chartCache.set(key, data))
+        .catch(() => {});
+    }
+  }
+}
+
 async function navigateChart(dir) {
   const newOffset = chartOffset + dir;
   if (newOffset > 0 || newOffset < -11) return;
@@ -41,15 +67,31 @@ async function navigateChart(dir) {
   if (chartOffset === 0 && defaultChartData) {
     const d = defaultChartData;
     drawChart(d.dates, d.thisYearTemps, d.lastYearTemps, d.todayIdx, true, d.diff);
+    prefetchAdjacent();
     return;
   }
 
   if (!currentLat || !currentLon) return;
 
+  const key = cacheKey(chartOffset);
+  const cached = chartCache.get(key);
+
+  if (cached) {
+    drawChart(cached.dates, cached.thisYearTemps, cached.lastYearTemps, cached.todayIdx, true, 0);
+    prefetchAdjacent();
+    return;
+  }
+
+  showChartSkeleton();
+
   try {
     const data = await fetchMonthChartData(currentLat, currentLon, chartOffset);
+    chartCache.set(key, data);
+    hideChartSkeleton();
     drawChart(data.dates, data.thisYearTemps, data.lastYearTemps, data.todayIdx, true, 0);
+    prefetchAdjacent();
   } catch {
+    hideChartSkeleton();
     chartOffset -= dir;
     updateChartNav();
   }
@@ -92,6 +134,8 @@ async function loadWeather(lat, lon, name) {
   chartOffset = 0;
   currentLat = lat;
   currentLon = lon;
+  chartCache.clear();
+  hideChartSkeleton();
 
   await resetUI();
   try {
@@ -118,6 +162,7 @@ async function loadWeather(lat, lon, name) {
     renderDiffBadge(data.diff);
     drawChart(data.dates, data.thisYearTemps, data.lastYearTemps, data.todayIdx, true, data.diff);
     updateChartNav();
+    prefetchAdjacent();
 
     $("status").className = "";
 

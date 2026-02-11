@@ -155,6 +155,41 @@
 .chart-nav-btn:hover { background: var(--separator); }
 .chart-nav-btn:disabled { opacity: 0.15; cursor: default; background: var(--fill2); }
 
+/* Chart skeleton */
+.chart-skeleton {
+  display: none;
+  height: 180px;
+  position: relative;
+  overflow: hidden;
+}
+
+.chart-skeleton.show {
+  display: block;
+}
+
+.chart-skeleton.show + canvas {
+  display: none;
+}
+
+.skeleton-line {
+  position: absolute;
+  left: 32px;
+  right: 8px;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--fill2);
+  animation: skeleton-pulse 1.2s ease-in-out infinite;
+}
+
+.skeleton-line-1 { top: 30%; animation-delay: 0s; }
+.skeleton-line-2 { top: 55%; animation-delay: 0.2s; }
+.skeleton-line-3 { top: 80%; animation-delay: 0.4s; }
+
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+
 .chart-legend {
   display: flex;
   gap: 14px;
