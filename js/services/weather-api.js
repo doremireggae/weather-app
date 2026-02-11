@@ -39,6 +39,36 @@ export async function fetchWeatherData(lat, lon) {
   };
 }
 
+export async function fetchMonthChartData(lat, lon, monthOffset) {
+  const now = new Date();
+  const target = new Date(now.getFullYear(), now.getMonth() + monthOffset, 1);
+  const year = target.getFullYear();
+  const month = target.getMonth();
+
+  const startDate = new Date(year, month, 1);
+  const endDate = new Date(year, month + 1, 0);
+  const lastStart = new Date(year - 1, month, 1);
+  const lastEnd = new Date(year - 1, month + 1, 0);
+
+  const [tR, lR] = await Promise.all([
+    fetch(`https://archive-api.open-meteo.com/v1/archive?latitude=${lat}&longitude=${lon}&start_date=${toDateStr(startDate)}&end_date=${toDateStr(endDate)}&daily=temperature_2m_max&timezone=auto`),
+    fetch(`https://archive-api.open-meteo.com/v1/archive?latitude=${lat}&longitude=${lon}&start_date=${toDateStr(lastStart)}&end_date=${toDateStr(lastEnd)}&daily=temperature_2m_max&timezone=auto`),
+  ]);
+
+  if (!tR.ok || !lR.ok) throw new Error();
+  const td = await tR.json(), ld = await lR.json();
+
+  const todayStr = toDateStr(now);
+  const todayIdx = td.daily.time.indexOf(todayStr);
+
+  return {
+    dates: td.daily.time,
+    thisYearTemps: td.daily.temperature_2m_max,
+    lastYearTemps: ld.daily.temperature_2m_max,
+    todayIdx,
+  };
+}
+
 export async function fetchCitySummaryData(city) {
   const today = new Date(), todayStr = toDateStr(today);
   const ago = new Date(today); ago.setFullYear(ago.getFullYear() - 1);

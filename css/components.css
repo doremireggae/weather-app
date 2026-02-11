@@ -132,6 +132,22 @@
 
 .chart-title svg { width: 14px; height: 14px; }
 
+.chart-nav-btn {
+  background: none;
+  border: 1px solid var(--fill2);
+  border-radius: 5px;
+  color: var(--text2);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1;
+  padding: 1px 6px;
+  cursor: pointer;
+  transition: opacity 0.15s, background 0.15s;
+}
+
+.chart-nav-btn:hover { background: var(--fill2); }
+.chart-nav-btn:disabled { opacity: 0.2; cursor: default; background: none; }
+
 .chart-legend {
   display: flex;
   gap: 14px;

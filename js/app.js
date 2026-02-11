@@ -1,7 +1,7 @@
 import { $ , showError, setTitle } from './ui/dom-helpers.js';
-import { t } from './data/i18n.js';
+import { t, getCurrentLang } from './data/i18n.js';
 import { reverseGeocode } from './services/geocoding-api.js';
-import { fetchWeatherData, fetchCitySummaryData } from './services/weather-api.js';
+import { fetchWeatherData, fetchCitySummaryData, fetchMonthChartData } from './services/weather-api.js';
 import {
   getSavedCities, getSelectedCityId, setSelectedCityId,
   cityId, loadSavedCities, saveCities, addCityToStore, removeCityFromStore, findCity
@@ -9,6 +9,51 @@ import {
 import { initSidebar, renderCityList } from './ui/sidebar.js';
 import { drawChart, cancelChartAnim } from './ui/chart.js';
 import { renderTodayCard, renderHistoryCard, renderDiffBadge } from './ui/weather-cards.js';
+
+// --- Chart navigation state ---
+
+let chartOffset = 0;
+let currentLat = null, currentLon = null;
+let defaultChartData = null;
+
+function updateChartNav() {
+  $("chart-next").disabled = (chartOffset >= 0);
+  $("chart-prev").disabled = (chartOffset <= -11);
+
+  if (chartOffset === 0) {
+    $("label-chart").textContent = t("chart");
+  } else {
+    const now = new Date();
+    const target = new Date(now.getFullYear(), now.getMonth() + chartOffset, 1);
+    const lang = getCurrentLang();
+    const locale = lang === "en" ? "en-US" : lang;
+    const label = target.toLocaleDateString(locale, { month: "long", year: "numeric" });
+    $("label-chart").textContent = label.charAt(0).toUpperCase() + label.slice(1);
+  }
+}
+
+async function navigateChart(dir) {
+  const newOffset = chartOffset + dir;
+  if (newOffset > 0 || newOffset < -11) return;
+  chartOffset = newOffset;
+  updateChartNav();
+
+  if (chartOffset === 0 && defaultChartData) {
+    const d = defaultChartData;
+    drawChart(d.dates, d.thisYearTemps, d.lastYearTemps, d.todayIdx, true, d.diff);
+    return;
+  }
+
+  if (!currentLat || !currentLon) return;
+
+  try {
+    const data = await fetchMonthChartData(currentLat, currentLon, chartOffset);
+    drawChart(data.dates, data.thisYearTemps, data.lastYearTemps, data.todayIdx, true, 0);
+  } catch {
+    chartOffset -= dir;
+    updateChartNav();
+  }
+}
 
 // --- Orchestration ---
 
@@ -44,6 +89,10 @@ function resetUI() {
 }
 
 async function loadWeather(lat, lon, name) {
+  chartOffset = 0;
+  currentLat = lat;
+  currentLon = lon;
+
   await resetUI();
   try {
     let data;
@@ -56,10 +105,19 @@ async function loadWeather(lat, lon, name) {
       data = d;
     }
 
+    defaultChartData = {
+      dates: data.dates,
+      thisYearTemps: data.thisYearTemps,
+      lastYearTemps: data.lastYearTemps,
+      todayIdx: data.todayIdx,
+      diff: data.diff,
+    };
+
     renderTodayCard(data.weatherCode, data.todayMax, data.currentTemp);
     renderHistoryCard(data.hCode, data.historyTemp);
     renderDiffBadge(data.diff);
     drawChart(data.dates, data.thisYearTemps, data.lastYearTemps, data.todayIdx, true, data.diff);
+    updateChartNav();
 
     $("status").className = "";
 
@@ -135,6 +193,9 @@ async function refreshAllCitySummaries() {
 loadSavedCities();
 renderCityList();
 initSidebar({ onSelect: selectCity, onAdd: addCity, onRemove: removeCity });
+
+$("chart-prev").addEventListener("click", () => navigateChart(-1));
+$("chart-next").addEventListener("click", () => navigateChart(1));
 
 const savedCities = getSavedCities();
 if (savedCities.length > 0) {

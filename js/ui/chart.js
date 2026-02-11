@@ -155,6 +155,7 @@ export function drawChart(dates, thisYear, lastYear, todayIdx, animate, diffValu
   }
 
   function drawForecastDots(frac, color) {
+    if (todayIdx < 0) return;
     const forecastPts = [];
     for (let i = todayIdx + 1; i < thisYear.length; i++) {
       if (thisYear[i] != null) forecastPts.push({ x: xPos(i), y: yPos(thisYear[i]) });
@@ -171,8 +172,11 @@ export function drawChart(dates, thisYear, lastYear, todayIdx, animate, diffValu
   }
 
   const lastYearPts = getPoints(lastYear, lastYear.length - 1);
-  const pastTemps = thisYear.map((v, i) => i <= todayIdx ? v : null);
-  const thisYearPts = getPoints(pastTemps, todayIdx);
+  const hasToday = todayIdx >= 0 && todayIdx < n;
+  const pastTemps = hasToday
+    ? thisYear.map((v, i) => i <= todayIdx ? v : null)
+    : thisYear;
+  const thisYearPts = getPoints(pastTemps, hasToday ? todayIdx : thisYear.length - 1);
 
   function drawFullFrame() {
     drawStatic();
