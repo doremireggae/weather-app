@@ -9,6 +9,17 @@ import { redrawChart } from './chart.js';
 
 let callbacks = {};
 
+function initSidebarToggle(sidebar) {
+  const btn = document.getElementById("sidebar-toggle");
+  if (!btn) return;
+  btn.addEventListener("click", () => {
+    sidebar.classList.toggle("collapsed");
+  });
+  sidebar.addEventListener("transitionend", (e) => {
+    if (e.propertyName === "width") redrawChart();
+  });
+}
+
 export function renderCityList() {
   const savedCities = getSavedCities();
   const selectedCityId = getSelectedCityId();
@@ -312,9 +323,5 @@ export function initSidebar({ onSelect, onAdd, onRemove }) {
   if (savedWidth) sidebar.style.width = savedWidth + "px";
 
   // Sidebar toggle
-  $("sidebar-toggle").addEventListener("click", () => {
-    sidebar.classList.toggle("collapsed");
-    // Redraw chart after transition to fit new width
-    sidebar.addEventListener("transitionend", () => redrawChart(), { once: true });
-  });
+  initSidebarToggle(sidebar);
 }
