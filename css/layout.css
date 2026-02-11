@@ -12,7 +12,7 @@
   align-items: center;
   height: 52px;
   padding: 0 24px;
-  border-bottom: 0.5px solid var(--separator);
+  border-bottom: 1px solid var(--border);
   position: relative;
   flex-shrink: 0;
 }
@@ -46,7 +46,7 @@ html.native-app .titlebar {
   max-width: 480px;
   flex-shrink: 0;
   background: var(--sidebar-bg);
-  border-right: 0.5px solid var(--sidebar-border);
+  border-right: 1px solid var(--border);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -84,7 +84,7 @@ html.native-app .titlebar {
     min-width: unset;
     max-width: unset;
     border-right: none;
-    border-bottom: 0.5px solid var(--sidebar-border);
+    border-bottom: 1px solid var(--border);
     max-height: 220px;
   }
   .sidebar-resize { display: none; }

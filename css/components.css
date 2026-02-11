@@ -30,17 +30,16 @@
 }
 
 .card {
-  background: var(--fill);
-  border-radius: 12px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
   padding: 18px;
   display: none;
 }
 
 .card-label {
   font-size: 13px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
+  font-weight: 500;
   color: var(--text2);
   margin-bottom: 12px;
   display: flex;
@@ -92,22 +91,23 @@
 /* Diff badge */
 .diff {
   margin-top: 10px;
-  font-size: 13px;
-  font-weight: 600;
-  padding: 5px 10px;
-  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 9999px;
   display: none;
   width: fit-content;
 }
 
-.diff.warmer { background: rgba(48, 209, 88, 0.15); color: var(--warmer); }
-.diff.cooler { background: rgba(10, 132, 255, 0.15); color: var(--cooler); }
-.diff.same { background: rgba(48, 209, 88, 0.15); color: var(--same); }
+.diff.warmer { background: rgba(52, 211, 153, 0.12); color: var(--warmer); border: 1px solid rgba(52, 211, 153, 0.25); }
+.diff.cooler { background: rgba(56, 189, 248, 0.12); color: var(--cooler); border: 1px solid rgba(56, 189, 248, 0.25); }
+.diff.same { background: rgba(161, 161, 170, 0.12); color: var(--same); border: 1px solid rgba(161, 161, 170, 0.25); }
 
 /* Chart */
 .chart-container {
-  background: var(--fill);
-  border-radius: 12px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
   padding: 18px;
   display: none;
 }
@@ -120,10 +120,8 @@
 }
 
 .chart-title {
-  font-size: 13px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
+  font-size: 14px;
+  font-weight: 500;
   color: var(--text2);
   display: flex;
   align-items: center;
@@ -140,9 +138,9 @@
 }
 
 .chart-nav-btn {
-  background: var(--fill2);
-  border: none;
-  border-radius: 8px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
   color: var(--text2);
   font-size: 20px;
   font-weight: 600;
@@ -152,8 +150,8 @@
   transition: opacity 0.15s, background 0.15s;
 }
 
-.chart-nav-btn:hover { background: var(--separator); }
-.chart-nav-btn:disabled { opacity: 0.15; cursor: default; background: var(--fill2); }
+.chart-nav-btn:hover { background: var(--secondary); }
+.chart-nav-btn:disabled { opacity: 0.15; cursor: default; background: transparent; }
 
 /* Chart skeleton */
 .chart-skeleton {
@@ -177,7 +175,7 @@
   right: 8px;
   height: 2px;
   border-radius: 1px;
-  background: var(--fill2);
+  background: var(--secondary);
   animation: skeleton-pulse 1.2s ease-in-out infinite;
 }
 
