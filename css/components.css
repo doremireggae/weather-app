@@ -132,21 +132,28 @@
 
 .chart-title svg { width: 14px; height: 14px; }
 
+.chart-nav {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+  justify-content: center;
+}
+
 .chart-nav-btn {
-  background: none;
-  border: 1px solid var(--fill2);
-  border-radius: 5px;
+  background: var(--fill2);
+  border: none;
+  border-radius: 8px;
   color: var(--text2);
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 600;
   line-height: 1;
-  padding: 1px 6px;
+  padding: 6px 20px;
   cursor: pointer;
   transition: opacity 0.15s, background 0.15s;
 }
 
-.chart-nav-btn:hover { background: var(--fill2); }
-.chart-nav-btn:disabled { opacity: 0.2; cursor: default; background: none; }
+.chart-nav-btn:hover { background: var(--separator); }
+.chart-nav-btn:disabled { opacity: 0.15; cursor: default; background: var(--fill2); }
 
 .chart-legend {
   display: flex;

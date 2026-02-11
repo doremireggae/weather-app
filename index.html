@@ -74,9 +74,7 @@
           <div class="chart-header">
             <span class="chart-title">
               <svg viewBox="0 0 16 16" fill="currentColor"><path d="M1 14h14M2 11l3-4 3 2 4-6 2 3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              <button class="chart-nav-btn" id="chart-prev">&lsaquo;</button>
               <span id="label-chart">4-Week Highs</span>
-              <button class="chart-nav-btn" id="chart-next" disabled>&rsaquo;</button>
             </span>
             <div class="chart-legend">
               <span><span class="legend-line" style="background: var(--line1);"></span><span id="legend-this">This year</span></span>
@@ -84,6 +82,10 @@
             </div>
           </div>
           <canvas id="temp-chart" height="180"></canvas>
+          <div class="chart-nav">
+            <button class="chart-nav-btn" id="chart-prev">&lsaquo;</button>
+            <button class="chart-nav-btn" id="chart-next" disabled>&rsaquo;</button>
+          </div>
         </div>
       </div>
     </div>
