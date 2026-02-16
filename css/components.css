@@ -99,9 +99,9 @@
   width: fit-content;
 }
 
-.diff.warmer { background: rgba(52, 211, 153, 0.12); color: var(--warmer); border: 1px solid rgba(52, 211, 153, 0.25); }
-.diff.cooler { background: rgba(56, 189, 248, 0.12); color: var(--cooler); border: 1px solid rgba(56, 189, 248, 0.25); }
-.diff.same { background: rgba(161, 161, 170, 0.12); color: var(--same); border: 1px solid rgba(161, 161, 170, 0.25); }
+.diff.warmer { background: rgba(52, 211, 153, 0.12); color: var(--warmer); }
+.diff.cooler { background: rgba(56, 189, 248, 0.12); color: var(--cooler); }
+.diff.same { background: rgba(161, 161, 170, 0.12); color: var(--same); }
 
 /* Chart */
 .chart-container {
